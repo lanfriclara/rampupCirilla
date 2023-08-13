@@ -1,19 +1,26 @@
-// Imports + links to css goes here
-import './App.css';
-import { Login } from './Login';
-
-/**
- * Functional component - ALT + J to activate this snippet to document the code
- * @returns {void}
- */
-const App = () => {
-  // Javascript code here
-  console.log('Here goes the Javascript code');
-
-  // Html code goes here
-  return <Login/>
-};
-
-export { App };
-
-
+ import React from 'react';
+ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+ import { Login } from './Login';
+ import Register from './Register';
+ 
+ /**
+  * Functional component - ALT + J to activate this snippet to document the code
+  * @returns {void}
+  */
+ const App = () => {
+ 
+   return (
+       <Router>
+         <Routes>
+           <Route path="/" element={<Login />} />
+           <Route path="/about" element={<Register />} />
+         </Routes>
+       </Router>
+     );
+   };
+     
+   
+   // Html code goes here
+ 
+ 
+ export { App };

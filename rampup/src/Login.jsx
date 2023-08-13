@@ -1,26 +1,29 @@
+import React, { useState } from 'react';
+import Register from './Register';
 /**
+
  * Login component
  * @returns {JSX}
  */
-// const Login = () => {
-//     return <div> HERE GOES THE LOGIN </div>;
-//   };
-  
 
-  // LoginForm.js
-
-  import React, { useState } from 'react';
 
   const Login = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [credentials, setCredentials] = useState([{username: '', password: ''},
+     {username: 'clari', password: '123'}]);
+
+
+
+
+     
+
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [authMessage, setAuthMessage] = useState('');
-  
-    // Credenciales válidas del usuario registrado (modifica estas según tus necesidades)
+    const [showRegister, setShowRegister] = useState(false); 
+
     const validUsername = 'usuario_registrado';
     const validPassword = 'contraseña_registrada';
   
+      
     const handleUsernameChange = (e) => {
       setUsername(e.target.value);
     };
@@ -31,7 +34,8 @@
   
     const handleSubmit = (e) => {
       e.preventDefault();
-  
+
+     
       // Verificar si las credenciales ingresadas coinciden con las credenciales válidas
       if (username === validUsername && password === validPassword) {
         setIsLoggedIn(true);
@@ -42,6 +46,10 @@
       }
     };
   
+    const handleShowRegister = () => {
+      setShowRegister(true);
+    };
+    
     return (
       <div>
         <h2>Log in</h2>
@@ -64,18 +72,22 @@
             </button>
           </div>
           <div className="create-button">
-            <button
-              type="submit"
-              style={{ fontSize: '10px', backgroundColor: 'lightpink', fontFamily: 'Poppins' }}
-            >
-              Create a New Account
-            </button>
-          </div>
-        </form>
-  
-        {authMessage && <p>{authMessage}</p>} {/* Mostrar el mensaje de autenticación */}
+        {showRegister ? (
+          <Register /> // Mostrar el componente Register cuando showRegister es true
+        ) : (
+          <button
+            type="button"
+            onClick={handleShowRegister}
+            style={{ fontSize: '10px', backgroundColor: 'lightpink', fontFamily: 'Poppins' }}
+          >
+            Create a New Account
+          </button>
+        )}
       </div>
-    );
+    </form>
+    {authMessage && <p>{authMessage}</p>}
+  </div>
+);
   };
   
   export { Login };
