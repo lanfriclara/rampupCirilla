@@ -1,12 +1,12 @@
 import React, { useState } from 'react'; // Agrega esta línea para importar useState
 import { Login } from './Login';
 import { Register } from './Register';
+import { App } from './App';
 
-const Hello = ({ currentUser }) => {
+const Hello = ({ currentUser, }) => {
   return (
     <div>
-      <h2> Hello {currentUser.username} ! </h2>
-      {/* Resto de tu contenido para la página de listas */}
+      <h1> Hello {currentUser.username} ! </h1>
     </div>
   );
 };
@@ -134,6 +134,7 @@ const Lists = ({ currentUser }) => {
           ))}
         </ul>
       </div>
+     
     </div>
   );
 };

@@ -33,6 +33,11 @@ const App = () => {
     return false; // Usuario no encontrado
   };
 
+  const handleBackToLogin = () => {
+    setRegisterOpened(false); // Cerrar la página de registro
+    setListsOpened(false); // Cerrar la página de listas si estaba abierta
+  };
+
   return (
     <>
       {!registerOpened && !listsOpened && (
@@ -40,9 +45,12 @@ const App = () => {
           handleUserLogin={handleUserLogin}
           setRegisterOpened={setRegisterOpened}
           setListsOpened={setListsOpened}
+
         />
       )}
-      {registerOpened && !listsOpened && <Register onRegister={handleUserRegistration} />}
+      {registerOpened && !listsOpened && <Register onRegister={handleUserRegistration} 
+                onBack={() => setRegisterOpened(false)} // Agrega esta línea
+                />}
       {listsOpened && <Lists currentUser={currentUser} />}
     </>
   );

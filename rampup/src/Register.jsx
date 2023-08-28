@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Login } from './Login';
 
-const Register = ({ onRegister, }) => {
+const Register = ({ onRegister, onBack}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [registrationMessage, setRegistrationMessage] = useState('');
@@ -60,12 +60,13 @@ const Register = ({ onRegister, }) => {
         )}
         <div>
           <button
-            type="submit"
-            style={{
-              fontSize: '10px',
-              backgroundColor: 'lightpink',
-              fontFamily: 'Poppins',
-            }}
+             type="button" // Cambiar a button en lugar de submit
+             onClick={onBack} // Llamar a la función onBack al hacer clic
+             style={{
+               fontSize: '10px',
+               backgroundColor: 'lightpink',
+               fontFamily: 'Poppins',
+             }}
           >
             Back
           </button>
