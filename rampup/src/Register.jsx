@@ -1,59 +1,83 @@
 import React, { useState } from 'react';
 import { Login } from './Login';
 
-
-const Register = ({ onRegister }) => {
+const Register = ({ onRegister, }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [registrationMessage, setRegistrationMessage] = useState('');
-
+  const [passwordError, setPasswordError] = useState('');
+  
+  
+    
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
   };
 
   const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+
+    if (newPassword.length >= 5) {
+      setPasswordError('');
+    } else {
+      setPasswordError('Password must be at least 5 characters long');
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Aquí podrías realizar alguna validación de los datos ingresados antes de registrar al usuario
-    // Por simplicidad, omitimos la validación en este ejemplo.
+    if (password.length < 5) {
+      setPasswordError('*Password must be at least 5 characters long');
+      return;
+    }
 
-    // Crear un nuevo objeto de usuario con los datos ingresados
     const newUser = { username, password };
-
-    // Llamar a la función "onRegister" pasándole el nuevo usuario
     onRegister(newUser);
-
-    // Mostrar un mensaje de registro exitoso
-    setRegistrationMessage('Registro exitoso. Ahora puedes iniciar sesión.');
+    setRegistrationMessage('Registration successful. You can now log in.');
   };
 
   return (
     <div>
-      <h2>Crear nueva cuenta</h2>
+      <h2>Create a new account</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Usuario:</label>
-          <input
-            type="text"
-            value={username}
-            onChange={handleUsernameChange}
-          />
+          <label>Username:</label>
+          <input type="text" value={username} onChange={handleUsernameChange} />
         </div>
         <div>
-          <label>Contraseña:</label>
+          <label>Password:</label>
           <input
             type="password"
             value={password}
             onChange={handlePasswordChange}
           />
         </div>
+        {passwordError && (
+          <div className="error" style={{ fontSize: '12px', color: 'black' }}>
+            {passwordError}
+          </div>
+        )}
         <div>
-          <button type="submit" style={{ fontSize: '10px', backgroundColor: 'lightpink', fontFamily: 'Poppins' }}>
-            Registrar
+          <button
+            type="submit"
+            style={{
+              fontSize: '10px',
+              backgroundColor: 'lightpink',
+              fontFamily: 'Poppins',
+            }}
+          >
+            Back
+          </button>
+          <button
+           type="submit"
+           style={{
+             fontSize: '10px',
+             backgroundColor: 'lightpink',
+             fontFamily: 'Poppins',
+            }}
+          >
+            Register
           </button>
         </div>
       </form>
@@ -62,4 +86,4 @@ const Register = ({ onRegister }) => {
   );
 };
 
-export default Register;
+export { Register };

@@ -9,10 +9,15 @@ html, body {
 
 
 button {
-    padding: 15px;
-    font-size: 1.3rem;
+    padding: 10px;
+    font-size: 0.8rem;
     margin-right: 5px;
+    font-family: Impact;
+    color: rgb(226, 54, 82);
+background-color: lightpink;
 }
+
+
 
 
   

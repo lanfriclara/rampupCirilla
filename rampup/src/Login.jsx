@@ -1,94 +1,66 @@
 import React, { useState } from 'react';
-import Register from './Register';
-/**
+import { Register } from './Register';
+import { Lists } from './Lists';
 
- * Login component
- * @returns {JSX}
- */
+const Login = ({ setRegisterOpened, handleUserLogin }) => {
+  const [formData, setFormData] = useState({ username: '', password: '' });
+  const [showError, setShowError] = useState(false);
 
-
-  const Login = () => {
-    const [credentials, setCredentials] = useState([{username: '', password: ''},
-     {username: 'clari', password: '123'}]);
-
-
-
-
-     
-
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [authMessage, setAuthMessage] = useState('');
-    const [showRegister, setShowRegister] = useState(false); 
-
-    const validUsername = 'usuario_registrado';
-    const validPassword = 'contraseña_registrada';
-  
-      
-    const handleUsernameChange = (e) => {
-      setUsername(e.target.value);
-    };
-  
-    const handlePasswordChange = (e) => {
-      setPassword(e.target.value);
-    };
-  
-    const handleSubmit = (e) => {
-      e.preventDefault();
-
-     
-      // Verificar si las credenciales ingresadas coinciden con las credenciales válidas
-      if (username === validUsername && password === validPassword) {
-        setIsLoggedIn(true);
-        setAuthMessage('You are logged in!'); // Mostrar mensaje de inicio de sesión exitoso
-      } else {
-        setIsLoggedIn(false);
-        setAuthMessage('You are not registered.'); // Mostrar mensaje de no registrado
-      }
-    };
-  
-    const handleShowRegister = () => {
-      setShowRegister(true);
-    };
-    
-    return (
-      <div>
-        <h2>Log in</h2>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label>
-              Username:
-              <input type="text" value={username} onChange={handleUsernameChange} />
-            </label>
-          </div>
-          <div>
-            <label>
-              Password:
-              <input type="password" value={password} onChange={handlePasswordChange} />
-            </label>
-          </div>
-          <div className="send-button">
-            <button type="submit" style={{ fontSize: '10px', backgroundColor: 'lightpink', fontFamily: 'Poppins' }}>
-              Send
-            </button>
-          </div>
-          <div className="create-button">
-        {showRegister ? (
-          <Register /> // Mostrar el componente Register cuando showRegister es true
-        ) : (
-          <button
-            type="button"
-            onClick={handleShowRegister}
-            style={{ fontSize: '10px', backgroundColor: 'lightpink', fontFamily: 'Poppins' }}
-          >
-            Create a New Account
-          </button>
-        )}
-      </div>
-    </form>
-    {authMessage && <p>{authMessage}</p>}
-  </div>
-);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
-  
-  export { Login };
-  
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const userFound = handleUserLogin(formData);
+
+    if (userFound) {
+      setShowError(false);
+    } else {
+      setShowError(true);
+    }
+  };
+
+  return (
+    <div className="Login">
+      <h2>Login</h2>
+      <form>
+        <div className="form-group">
+          <label htmlFor="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            onChange={handleChange}
+          />
+        </div>
+        <button className="botonVerde" type="submit" onClick={handleLogin}>
+          Send
+        </button>
+        <button
+          className="botonVerde"
+          type="submit"
+          onClick={() => setRegisterOpened(true)}
+        >
+          Create account
+        </button>
+      </form>
+      {showError && <p>User not registered</p>}
+    </div>
+  );
+};
+
+export { Login };
